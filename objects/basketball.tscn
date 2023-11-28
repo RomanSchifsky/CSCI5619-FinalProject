@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://udffj4bgi2ba"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_7amkp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rv5j7"]
+bounce = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ypqhp"]
+radius = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_t7g7s"]
+radius = 0.25
+height = 0.5
+
+[node name="Basketball" instance=ExtResource("1_7amkp")]
+physics_material_override = SubResource("PhysicsMaterial_rv5j7")
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_ypqhp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("SphereMesh_t7g7s")

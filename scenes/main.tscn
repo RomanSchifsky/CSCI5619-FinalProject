@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=19 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize-webxr.gd" id="1_wh60i"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_4fa7h"]
@@ -26,17 +26,15 @@ sky = SubResource("Sky_noqmy")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_cix5i"]
-viewport_path = NodePath("Spatial Menu/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_myine"]
+viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wunei"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eilww"]
 resource_local_to_scene = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_cix5i")
+albedo_texture = SubResource("ViewportTexture_myine")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_cw5r1"]
-
-[sub_resource type="Skin" id="Skin_q8y3r"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_np3ht"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_wh60i")
@@ -109,18 +107,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(14, 2, 34)
 material = ExtResource("6_ld3ke")
 
-[node name="Spatial Menu" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.90677, 1.27561, -6.3483)
-material_override = SubResource("StandardMaterial3D_wunei")
-mesh = SubResource("PlaneMesh_cw5r1")
-skin = SubResource("Skin_q8y3r")
+[node name="SpatialMenu" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.14717, -5.21162)
+material_override = SubResource("StandardMaterial3D_eilww")
+mesh = SubResource("PlaneMesh_np3ht")
 
-[node name="SubViewport" type="SubViewport" parent="Spatial Menu"]
+[node name="SubViewport" type="SubViewport" parent="."]
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="Spatial Menu/SubViewport"]
+[node name="CanvasLayer2" type="CanvasLayer" parent="SubViewport"]
+follow_viewport_enabled = true
 
-[node name="CheckBox" type="CheckBox" parent="Spatial Menu/SubViewport/CanvasLayer2"]
-offset_right = 500.0
-offset_bottom = 500.0
-size_flags_horizontal = 0
-keep_pressed_outside = true
+[node name="LeftCheckButton" type="CheckButton" parent="SubViewport/CanvasLayer2"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 44.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "Left Check Button
+"
+
+[node name="RightCheckButton" type="CheckButton" parent="SubViewport/CanvasLayer2"]
+offset_right = 44.0
+offset_bottom = 24.0
+text = "Right Check Button
+"

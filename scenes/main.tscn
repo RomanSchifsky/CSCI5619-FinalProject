@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=20 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize-webxr.gd" id="1_wh60i"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_4fa7h"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_ny43q"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_l7nxi"]
 [ext_resource type="PackedScene" uid="uid://bk6ban0hctyym" path="res://addons/godot-xr-tools/functions/movement_wall_walk.tscn" id="8_niqa7"]
+[ext_resource type="Texture2D" uid="uid://dwrnh5pxqasnc" path="res://objects/mockup_v3.png" id="13_rjptj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_osj4q"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -108,7 +109,7 @@ size = Vector3(14, 2, 34)
 material = ExtResource("6_ld3ke")
 
 [node name="SpatialMenu" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.14717, -5.21162)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.5, 0, 1, -2.18557e-08, 0, 1.59462, -5.21162)
 material_override = SubResource("StandardMaterial3D_eilww")
 mesh = SubResource("PlaneMesh_np3ht")
 
@@ -116,6 +117,13 @@ mesh = SubResource("PlaneMesh_np3ht")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="SubViewport"]
 follow_viewport_enabled = true
+
+[node name="MockupV3" type="Sprite2D" parent="SubViewport/CanvasLayer2"]
+light_mask = 0
+z_as_relative = false
+scale = Vector2(0.32, 0.51)
+texture = ExtResource("13_rjptj")
+centered = false
 
 [node name="LeftCheckButton" type="CheckButton" parent="SubViewport/CanvasLayer2"]
 anchors_preset = 4

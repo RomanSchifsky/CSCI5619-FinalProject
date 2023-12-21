@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=31 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize-webxr.gd" id="1_wh60i"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_4fa7h"]
@@ -13,11 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_l7nxi"]
 [ext_resource type="PackedScene" uid="uid://bk6ban0hctyym" path="res://addons/godot-xr-tools/functions/movement_wall_walk.tscn" id="8_niqa7"]
 [ext_resource type="Texture2D" uid="uid://bwafvld7eeuwf" path="res://textures/Dark/texture_01.png" id="11_f2eaa"]
+[ext_resource type="Script" path="res://scenes/3D GUI.gd" id="12_7xial"]
 [ext_resource type="PackedScene" uid="uid://d1g5uiq1md2fl" path="res://objects/untitled.dae" id="12_w57k3"]
 [ext_resource type="PackedScene" uid="uid://dapnscxapgwic" path="res://objects/slider.tscn" id="13_45ayh"]
 [ext_resource type="Texture2D" uid="uid://bkhlqsfyhyhbo" path="res://objects/mockup_v4.png" id="13_h3fnm"]
 [ext_resource type="Script" path="res://objects/PlayAreaGUI.gd" id="14_62cri"]
 [ext_resource type="Script" path="res://scripts/leftCon.gd" id="14_lu7v4"]
+[ext_resource type="Script" path="res://objects/slider.gd" id="14_n7cg2"]
 [ext_resource type="Script" path="res://scripts/rightCon.gd" id="15_ihw21"]
 [ext_resource type="Script" path="res://scenes/Recalibrate.gd" id="16_vx4sf"]
 
@@ -34,11 +36,6 @@ sky = SubResource("Sky_noqmy")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy3fa"]
-albedo_texture = ExtResource("11_f2eaa")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_8wqb5"]
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_myine"]
 viewport_path = NodePath("SubViewport")
 
@@ -48,6 +45,11 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_myine")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_np3ht"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy3fa"]
+albedo_texture = ExtResource("11_f2eaa")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8wqb5"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_wh60i")
@@ -91,28 +93,8 @@ jump_button_action = "ax_button"
 [node name="FunctionPickup" parent="XROrigin3D/RightController" instance=ExtResource("4_f4ebe")]
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("4_3ubnx")]
-
-[node name="Node3D2" type="Node3D" parent="XROrigin3D/PlayerBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59418, 1.12933, -1.07422)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/PlayerBody/Node3D2"]
-transform = Transform3D(0.618193, 0.0669873, 0.155, 2.63855e-09, 0.965926, -0.160468, -0.165644, 0.25, 0.578468, 0.00354344, -0.00845647, -0.00285149)
-material_override = SubResource("StandardMaterial3D_cy3fa")
-transparency = 0.2
-mesh = SubResource("PlaneMesh_8wqb5")
-skeleton = NodePath("../..")
-
-[node name="Label3D" type="Label3D" parent="XROrigin3D/PlayerBody/Node3D2/MeshInstance3D"]
-transform = Transform3D(0.999476, -0.0193478, 0.0259635, -0.017792, 0.34181, 0.939602, -0.0270543, -0.939578, 0.34129, -0.0206762, 0.0746498, -1.14937)
-text = "HEYA"
-
-[node name="Slider" parent="XROrigin3D/PlayerBody/Node3D2" instance=ExtResource("13_45ayh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32996, 0.0439801, -0.0823773)
-gravity_scale = 0.0
-
-[node name="untitled" parent="XROrigin3D/PlayerBody/Node3D2" instance=ExtResource("12_w57k3")]
-transform = Transform3D(0.312321, 0.0199049, 0.10046, 0.0124384, 0.31589, -0.0922667, -0.100535, 0.0858528, 0.297018, 0.00353783, 0.0128334, 0.015494)
-script = ExtResource("14_62cri")
+collision_mask = 1019
+platform_floor_layers = 4294901776
 
 [node name="MovementWallWalk" parent="XROrigin3D" instance=ExtResource("8_niqa7")]
 
@@ -133,8 +115,8 @@ grow_vertical = 2
 text = "Enter VR"
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.268036, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-layers = 17
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 1122.1, 0, 0, 0)
+layers = 16
 use_collision = true
 collision_layer = 3
 
@@ -145,12 +127,14 @@ material = ExtResource("6_ld3ke")
 
 [node name="SpatialMenu" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.5, 0, 1, -2.18557e-08, 0, 1.59462, -5.21162)
+visible = false
 material_override = SubResource("StandardMaterial3D_eilww")
 mesh = SubResource("PlaneMesh_np3ht")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 follow_viewport_enabled = true
 
 [node name="Control" type="Control" parent="CanvasLayer2"]
@@ -198,5 +182,36 @@ offset_right = 103.0
 offset_bottom = 390.0
 script = ExtResource("16_vx4sf")
 
+[node name="3D GUI" type="Node3D" parent="."]
+transform = Transform3D(0.405, 0, 0, 0, 0.405, 0, 0, 0, 0.405, 0, 1.47445, -0.468072)
+script = ExtResource("12_7xial")
+
+[node name="Bounds" type="Node3D" parent="3D GUI"]
+transform = Transform3D(1, 0, 0, 0, 0.945143, -0.326657, 0, 0.326657, 0.945143, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D GUI/Bounds"]
+transform = Transform3D(0.64, 0, 0, 0, 1, 0, 0, 0, 0.62, 0, 0, -0.003)
+material_override = SubResource("StandardMaterial3D_cy3fa")
+transparency = 0.2
+mesh = SubResource("PlaneMesh_8wqb5")
+skeleton = NodePath("../../../XROrigin3D/PlayerBody")
+
+[node name="Label3D" type="Label3D" parent="3D GUI/Bounds/MeshInstance3D"]
+transform = Transform3D(0.999476, -0.0193478, 0.0259635, -0.017792, 0.34181, 0.939602, -0.0270543, -0.939578, 0.34129, -0.0206762, 0.0746498, -1.14937)
+text = "HEYA"
+
+[node name="Slider" parent="3D GUI/Bounds" instance=ExtResource("13_45ayh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32996, 0.0439801, 0.0176227)
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 0
+script = ExtResource("14_n7cg2")
+
+[node name="DirectionCircle" parent="3D GUI/Bounds" instance=ExtResource("12_w57k3")]
+transform = Transform3D(0.328323, -0.00327945, 0, 0.00328331, 0.327937, 0, 0, 0, 0.326841, 0.00353783, 0.0128334, 0.0154939)
+rotation_edit_mode = 1
+script = ExtResource("14_62cri")
+
+[connection signal="button_pressed" from="XROrigin3D/RightController" to="3D GUI" method="_on_right_controller_button_pressed"]
 [connection signal="toggled" from="CanvasLayer2/Control/LeftCheck" to="CanvasLayer2/Control/LeftCheck" method="_on_CheckBox1_toggled"]
 [connection signal="toggled" from="CanvasLayer2/Control/RightCheck" to="CanvasLayer2/Control/RightCheck" method="_on_CheckBox1_toggled"]

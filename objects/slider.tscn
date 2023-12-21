@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dapnscxapgwic"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_iei1x"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_32dw4"]
+radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xjki"]
+albedo_color = Color(0.219608, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2hs7b"]
+material = SubResource("StandardMaterial3D_2xjki")
+radius = 0.05
+height = 0.1
+
+[node name="Slider" instance=ExtResource("1_iei1x")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_32dw4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000568762, 0.00190294, 0.00220644)
+mesh = SubResource("SphereMesh_2hs7b")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=29 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize-webxr.gd" id="1_wh60i"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_4fa7h"]
@@ -12,7 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_ny43q"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_l7nxi"]
 [ext_resource type="PackedScene" uid="uid://bk6ban0hctyym" path="res://addons/godot-xr-tools/functions/movement_wall_walk.tscn" id="8_niqa7"]
+[ext_resource type="Texture2D" uid="uid://bwafvld7eeuwf" path="res://textures/Dark/texture_01.png" id="11_f2eaa"]
+[ext_resource type="PackedScene" uid="uid://d1g5uiq1md2fl" path="res://objects/untitled.dae" id="12_w57k3"]
+[ext_resource type="PackedScene" uid="uid://dapnscxapgwic" path="res://objects/slider.tscn" id="13_45ayh"]
 [ext_resource type="Texture2D" uid="uid://bkhlqsfyhyhbo" path="res://objects/mockup_v4.png" id="13_h3fnm"]
+[ext_resource type="Script" path="res://objects/PlayAreaGUI.gd" id="14_62cri"]
 [ext_resource type="Script" path="res://scripts/leftCon.gd" id="14_lu7v4"]
 [ext_resource type="Script" path="res://scripts/rightCon.gd" id="15_ihw21"]
 [ext_resource type="Script" path="res://scenes/Recalibrate.gd" id="16_vx4sf"]
@@ -29,6 +33,11 @@ background_mode = 2
 sky = SubResource("Sky_noqmy")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy3fa"]
+albedo_texture = ExtResource("11_f2eaa")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8wqb5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_myine"]
 viewport_path = NodePath("SubViewport")
@@ -83,6 +92,28 @@ jump_button_action = "ax_button"
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("4_3ubnx")]
 
+[node name="Node3D2" type="Node3D" parent="XROrigin3D/PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59418, 1.12933, -1.07422)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/PlayerBody/Node3D2"]
+transform = Transform3D(0.618193, 0.0669873, 0.155, 2.63855e-09, 0.965926, -0.160468, -0.165644, 0.25, 0.578468, 0.00354344, -0.00845647, -0.00285149)
+material_override = SubResource("StandardMaterial3D_cy3fa")
+transparency = 0.2
+mesh = SubResource("PlaneMesh_8wqb5")
+skeleton = NodePath("../..")
+
+[node name="Label3D" type="Label3D" parent="XROrigin3D/PlayerBody/Node3D2/MeshInstance3D"]
+transform = Transform3D(0.999476, -0.0193478, 0.0259635, -0.017792, 0.34181, 0.939602, -0.0270543, -0.939578, 0.34129, -0.0206762, 0.0746498, -1.14937)
+text = "HEYA"
+
+[node name="Slider" parent="XROrigin3D/PlayerBody/Node3D2" instance=ExtResource("13_45ayh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32996, 0.0439801, -0.0823773)
+gravity_scale = 0.0
+
+[node name="untitled" parent="XROrigin3D/PlayerBody/Node3D2" instance=ExtResource("12_w57k3")]
+transform = Transform3D(0.312321, 0.0199049, 0.10046, 0.0124384, 0.31589, -0.0922667, -0.100535, 0.0858528, 0.297018, 0.00353783, 0.0128334, 0.015494)
+script = ExtResource("14_62cri")
+
 [node name="MovementWallWalk" parent="XROrigin3D" instance=ExtResource("8_niqa7")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -102,6 +133,7 @@ grow_vertical = 2
 text = "Enter VR"
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.268036, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 layers = 17
 use_collision = true
 collision_layer = 3
@@ -128,6 +160,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer2/Control"]
+layout_mode = 0
 offset_left = 61.0
 offset_top = 12.0
 offset_right = 1661.0
@@ -136,6 +169,7 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("13_h3fnm")
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer2/Control"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -157,6 +191,7 @@ offset_bottom = 107.0
 script = ExtResource("15_ihw21")
 
 [node name="Recalibrate" type="CheckBox" parent="CanvasLayer2/Control"]
+layout_mode = 0
 offset_left = 79.0
 offset_top = 366.0
 offset_right = 103.0

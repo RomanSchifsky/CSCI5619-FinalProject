@@ -10,6 +10,3 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_CheckBox1_toggled(button_pressed):
-	var player = get_node("/root/XROrigin3d") 
-	player.set_control_state("right_toggle", button_pressed) 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=23 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize-webxr.gd" id="1_wh60i"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_4fa7h"]
@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_ny43q"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_l7nxi"]
 [ext_resource type="PackedScene" uid="uid://bk6ban0hctyym" path="res://addons/godot-xr-tools/functions/movement_wall_walk.tscn" id="8_niqa7"]
-[ext_resource type="Texture2D" uid="uid://dwrnh5pxqasnc" path="res://objects/mockup_v3.png" id="13_rjptj"]
+[ext_resource type="Texture2D" uid="uid://bkhlqsfyhyhbo" path="res://objects/mockup_v4.png" id="13_h3fnm"]
+[ext_resource type="Script" path="res://scripts/leftCon.gd" id="14_lu7v4"]
+[ext_resource type="Script" path="res://scripts/rightCon.gd" id="15_ihw21"]
+[ext_resource type="Script" path="res://scenes/Recalibrate.gd" id="16_vx4sf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_osj4q"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -115,29 +118,50 @@ mesh = SubResource("PlaneMesh_np3ht")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="SubViewport"]
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="MockupV3" type="Sprite2D" parent="SubViewport/CanvasLayer2"]
-light_mask = 0
-z_as_relative = false
-scale = Vector2(0.32, 0.51)
-texture = ExtResource("13_rjptj")
-centered = false
+[node name="Control" type="Control" parent="CanvasLayer2"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="LeftCheckButton" type="CheckButton" parent="SubViewport/CanvasLayer2"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -12.0
-offset_right = 44.0
-offset_bottom = 12.0
-grow_vertical = 2
-text = "Left Check Button
-"
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer2/Control"]
+offset_left = 61.0
+offset_top = 12.0
+offset_right = 1661.0
+offset_bottom = 1012.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("13_h3fnm")
 
-[node name="RightCheckButton" type="CheckButton" parent="SubViewport/CanvasLayer2"]
-offset_right = 44.0
-offset_bottom = 24.0
-text = "Right Check Button
-"
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer2/Control"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftCheck" type="CheckBox" parent="CanvasLayer2/Control"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 27.0
+offset_right = 102.0
+offset_bottom = 58.0
+expand_icon = true
+script = ExtResource("14_lu7v4")
+
+[node name="RightCheck" type="CheckBox" parent="CanvasLayer2/Control"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 83.0
+offset_right = 102.0
+offset_bottom = 107.0
+script = ExtResource("15_ihw21")
+
+[node name="Recalibrate" type="CheckBox" parent="CanvasLayer2/Control"]
+offset_left = 79.0
+offset_top = 366.0
+offset_right = 103.0
+offset_bottom = 390.0
+script = ExtResource("16_vx4sf")
+
+[connection signal="toggled" from="CanvasLayer2/Control/LeftCheck" to="CanvasLayer2/Control/LeftCheck" method="_on_CheckBox1_toggled"]
+[connection signal="toggled" from="CanvasLayer2/Control/RightCheck" to="CanvasLayer2/Control/RightCheck" method="_on_CheckBox1_toggled"]

@@ -1,3 +1,5 @@
+
+
 # **Redirected Walking With 3D VR GUI Configuration**
 
   
@@ -67,5 +69,5 @@ We used the XR-Tools function pickup script to give our slider object the Pickab
 
 # References
 
- - Used creative commons textures by Kenney
-   https://kenney.nl/assets/prototype-textures
+ - Creative commons textures by Kenney https://kenney.nl/assets/prototype-textures
+ - Utilized the Godot OpenXR library https://github.com/GodotVR/godot_openxr
